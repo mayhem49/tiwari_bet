@@ -3,12 +3,10 @@ const form = document.querySelector("#form");
 function calcBetAmt({ odd1, odd2, limit, wished_investment: investment }) {
   const p1 = odd2 / (odd1 + odd2);
   const p2 = odd1 / (odd1 + odd2);
-  console.log({ odd1, odd2, limit, investment });
 
   //limit is on p1
   const b1 = limit ? limit : p1 * investment;
   const b2 = limit ? (b1 * p2) / p1 : p2 * investment;
-  console.log(b1, b2);
   const actual_investment = limit ? b1 + b2 : investment;
   return [b1, b2, actual_investment];
 }
@@ -17,6 +15,19 @@ function pretty(float_val) {
   return float_val.toFixed(3);
 }
 
+function getRate() {
+  return localStorage.getItem("exchange_rate");
+}
+function setRate(value) {
+  localStorage.setItem("exchange_rate", value);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const rate_el = document.querySelector("#rate");
+  const rate = getRate();
+  console.log(rate);
+  rate_el.value = rate || 0;
+});
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   const odd1 = Number(document.querySelector("#odd1").value);
@@ -26,6 +37,7 @@ form.addEventListener("submit", (event) => {
   const nepal = document.querySelector("#nepal");
   const pound = document.querySelector("#pound");
   const rate = Number(document.querySelector("#rate").value);
+  setRate(rate);
 
   const [b1, b2, actual_investment] = calcBetAmt({
     odd1,
@@ -33,8 +45,6 @@ form.addEventListener("submit", (event) => {
     limit,
     wished_investment,
   });
-
-  console.log([b1, b2, actual_investment]);
 
   const return_amt = b1 * odd1;
   let p_l = return_amt - actual_investment;
