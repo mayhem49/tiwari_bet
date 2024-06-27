@@ -12,7 +12,7 @@ function calcBetAmt({ odd1, odd2, limit, wished_investment: investment }) {
 }
 
 function pretty(float_val) {
-  return float_val.toFixed(3);
+  return float_val.toFixed(4);
 }
 
 function getRate() {
