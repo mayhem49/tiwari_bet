@@ -25,7 +25,6 @@ function setRate(value) {
 document.addEventListener("DOMContentLoaded", () => {
   const rate_el = document.querySelector("#rate");
   const rate = getRate();
-  console.log(rate);
   rate_el.value = rate || 0;
 });
 form.addEventListener("submit", (event) => {
@@ -34,9 +33,14 @@ form.addEventListener("submit", (event) => {
   const odd2 = Number(document.querySelector("#odd2").value);
   const limit = Number(document.querySelector("#limit").value);
   let wished_investment = Number(document.querySelector("#investment").value);
-  const nepal = document.querySelector("#nepal");
-  const pound = document.querySelector("#pound");
+  const nepal_el = document.querySelector("#result>#nepal");
+  const pound_el = document.querySelector("#result>#pound");
   const rate = Number(document.querySelector("#rate").value);
+
+  const currency = document.querySelector(
+    'input[name="currency"]:checked'
+  ).value;
+
   setRate(rate);
 
   const [b1, b2, actual_investment] = calcBetAmt({
@@ -47,27 +51,35 @@ form.addEventListener("submit", (event) => {
   });
 
   const return_amt = b1 * odd1;
-  let p_l = return_amt - actual_investment;
-  let pl_percent = (p_l / actual_investment) * 100;
+  let pl = return_amt - actual_investment;
+  let pl_percent = (pl / actual_investment) * 100;
 
-  const nepal_str = `
-    <h4> In Nrs. </h4>
+  const render_data_default = [b1, b2, return_amt, pl];
+  const render_data_alternate = [b1, b2, return_amt, pl].map((el) => {
+    return currency === "pound" ? el * rate : el / rate;
+  });
+
+  let render_data_nrs =
+    currency === "pound" ? render_data_alternate : render_data_default;
+  let render_data_pound =
+    currency === "pound" ? render_data_default : render_data_alternate;
+
+  nepal_el.innerHTML = create_render_str("nrs", render_data_nrs, pl_percent);
+  pound_el.innerHTML = create_render_str(
+    "pound",
+    render_data_pound,
+    pl_percent
+  );
+});
+
+function create_render_str(currency, data, pl_percent) {
+  const [b1, b2, return_amt, pl] = data;
+  return `
+    <h4> In ${currency} </h4>
     <p>bet1: ${pretty(b1)}</p>
     <p>bet2: ${pretty(b2)}</p>
     <p>return: ${pretty(return_amt)}</p>
-    <p class="${p_l > 0 ? "green" : "red"}">${
-    p_l > 0 ? "profit" : "loss"
-  }: ${pretty(p_l)} (${pretty(pl_percent)}%)</p> `;
-
-  const pound_str = `
-    <h4> In pound </h4>
-    <p>bet1: ${pretty(b1 / rate)}</p>
-    <p>bet2: ${pretty(b2 / rate)}</p>
-    <p>return: ${pretty(return_amt / rate)}</p>
-    <p class="${p_l > 0 ? "green" : "red"}">${
-    p_l > 0 ? "profit" : "loss"
-  }: ${pretty(p_l / rate)} (${pretty(pl_percent)}%)</p> `;
-
-  nepal.innerHTML = nepal_str;
-  pound.innerHTML = pound_str;
-});
+    <p class="${pl > 0 ? "green" : "red"}">${
+    pl > 0 ? "profit" : "loss"
+  }: ${pretty(pl)} (${pretty(pl_percent)}%)</p> `;
+}
