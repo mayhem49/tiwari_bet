@@ -2,102 +2,104 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mini Calculator</title>
-    <style>
-        html {
-            padding: 0;
-            margin: 0;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini Calculator</title>
+  <style>
+    html {
+      padding: 0;
+      margin: 0;
 
-        }
+    }
 
-        form {
-            margin: 5%;
-            display: flex;
-        }
+    form {
+      margin: 5%;
+      display: flex;
+    }
 
-        section.odd {
-            display: flex;
-        }
+    section.odd {
+      display: flex;
+    }
 
 
-        div#result {
-            display: flex;
-            flex-direction: row;
-        }
+    div#result {
+      display: flex;
+      flex-direction: row;
+    }
 
-        #result>div {
-            padding: 2%
-        }
+    #result>div {
+      padding: 2%
+    }
 
-        .green {
-            color: green;
-        }
+    .green {
+      color: green;
+    }
 
-        .red {
-            color: red
-        }
-    </style>
+    .red {
+      color: red
+    }
+  </style>
 </head>
 
 <body>
 
-    <main>
-        <form action="" id="form">
-            <fieldset>
-                <legend>currency</legend>
+  <main>
+    <form action="" id="form">
+      <fieldset>
+        <legend>currency</legend>
 
-                <div>
-                    <input type="radio" id="pound" name="currency" value="pound" checked />
-                    <label for="pound">pound</label>
-                </div>
-
-                <div>
-                    <input type="radio" id="nrs" name="currency" value="nrs" />
-                    <label for="nrs">Nrs</label>
-                </div>
-
-                </div>
-            </fieldset>
-            <fieldset>
-                <legend>rate</legend>
-                <div>
-                    <label for="rate">rate(to nrs)</label>
-                    <input type="number" step="0.0001" name="rate" id="rate">
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <legend>odd</legend>
-                <section class="odd">
-                    <div>
-                        <div>
-                            <label for="odd1">odd1</label>
-                            <input type="" id="odd1" name="odd1">
-                        </div>
-                        <div>
-                            <label for="limit">limit</label>
-                            <input type="number" step="0.0001" name="limit" id="limit">
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            <label for="odd2">odd2</label>
-                            <input type="number" step="0.0001" id="odd2" name="odd2">
-                        </div>
-                    </div>
-                </section>
-            </fieldset>
-            <button type="submit"> calculate</button>
-        </form>
-
-        <div id="result">
-            <div id="nepal"></div>
-            <div id="pound"></div>
+        <div>
+          <input type="radio" id="pound" name="currency" value="pound" checked />
+          <label for="pound">pound</label>
         </div>
-    </main>
-    <script src="script.js"></script>
+
+        <div>
+          <input type="radio" id="nrs" name="currency" value="nrs" />
+          <label for="nrs">Nrs</label>
+        </div>
+
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>rate</legend>
+        <div>
+          <label for="rate">rate(to nrs)</label>
+          <input type="number" step="0.0001" name="rate" id="rate">
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>odd</legend>
+        <section class="odd">
+          <div>
+            <div>
+              <label for="odd1">odd1</label>
+              <input type="" id="odd1" name="odd1">
+            </div>
+            <div>
+              <label for="limit">limit</label>
+              <input type="number" step="0.0001" name="limit" id="limit">
+            </div>
+          </div>
+          <div>
+            <label for="odd2">odd2</label>
+            <input type="number" step="0.0001" id="odd2" name="odd2">
+          </div>
+          <div>
+            <label for="odd3">odd3</label>
+            <input type="number" step="0.0001" id="odd3" name="odd3">
+          </div>
+        </section>
+      </fieldset>
+      <button type="submit"> calculate</button>
+    </form>
+
+    <div id="result">
+      <div id="nepal"></div>
+      <div id="pound"></div>
+    </div>
+  </main>
+  <script src="script.js"></script>
 </body>
 
 </html>
